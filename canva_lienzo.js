@@ -1,7 +1,7 @@
 var kmpo = document.getElementById("campito");
 var lienzo = kmpo.getContext("2d");
-//var color = "red";
-/*var x = 150;
+var color = "black";
+var x = 150;
 var y = 150;
 
 
@@ -53,56 +53,60 @@ function manejaFlecha(evento){
     }
 
     if (evento.keyCode == teclas.LEFT) {
-        dibujandoCanvas(color, xi-1, yi-1, xf+1, yf+1, lienzo);
+        dibujandoCanvas(color, x, y, x - 10, y, lienzo);
         x = x -10;
         console.log("Esta es evento");
     }
     
     
-}*/
+}
 
 
 // Codigo del Evento dibujar con mouseup y mousedown
 
-kmpo.addEventListener("mousedown", lineaInicial); //Cuadro escucha el evento del clic abajo del mouse y ejecuta la función lineaInicial
+kmpo.addEventListener("mousedown", lineaInicial ); //Cuadro escucha el evento del clic abajo del mouse y ejecuta la función lineaInicial
 kmpo.addEventListener("mouseup", finLinea); //Cuadro escucha el evento clic arriba -soltar- y ejecuta finLinea
-kmpo.addEventListener("mousemove", lineaMovimiento); //cuadro escucha el mov del mouse y ejecutas lineaMovimiento.
+kmpo.addEventListener("mousemove", lineaMovimiento ); //cuadro escucha el mov del mouse y ejecutas lineaMovimiento.
 var mouse = false;
-var xm = e.offsetX;
-var ym = e.offsetY;
-var strokeStyle = "red"
-kmpo.lineJoin = "round";
-kmpo.lineCap = "round";
-//lastX = kmpo.offsetX;
-//lastY = kmpo.offsetY;
+var x = 0;
+var y = 0;
 
-function dibujandoMose(color, lastX, lastY, offsetX, offsetY, lienzo){
+
+
+// creamos la funcion del canvas
+function dibujandoCanvas(color, xi, yi, xf, yf, lienzo){
     lienzo.beginPath();
     lienzo.strokeStyle = color;
     lienzo.lineWidth = 1;
-    lienzo.moveTo(lastX, lastY);
-    lienzo.lineTo(offsetX, offsetY);
+    lienzo.moveTo(xi, yi);
+    lienzo.lineTo(xf, yf);
     lienzo.stroke();
-    //[lastX, lastY] = [e.offsetX, e.offsetY];
     lienzo.closePath();
 }
 
-function lineaInicial(e) {
-    mouse = true; 
-    //dibujandoCanvas("black", x, y, x, y, lienzo);
-    console.log("Esta en movimiento lneaIniciale",e );
+
+
+function lineaInicial(e){
+    mouse = true;
+    dibujandoCanvas("blue", x, y, x, y, lienzo);
+    x = e.offsetX;
+    y = e.offsetY;
+    console.log("Linea Inicial", e);
 }
+
 
 function finLinea(e) {
     mouse = false;
-    console.log("Esta en movimiento FIN D ELA LIENA",e );
+    console.log("Fin de la linea", e);
 }
 
 function lineaMovimiento(e) {
-    
-    if (mouse == true) {
-        dibujandoMose("blue", xm, ym, e.offsetX, e.offsetY, lienzo);
-        console.log("Esta en movimiento DIBUJA LA LINEA",mouse );
+    if (mouse == true){
+        dibujandoCanvas("blue", x, y, e.offsetX, e.offsetY, lienzo);
+        x = e.offsetX;
+        y = e.offsetY;
+        console.log("Este es la Linea en movimiento",e);
     }
 }
+ 
 
