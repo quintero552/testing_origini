@@ -1,6 +1,6 @@
 var kmpo = document.getElementById("campito");
 var lienzo = kmpo.getContext("2d");
-var color = "black";
+/*var color = "black";
 var x = 150;
 var y = 150;
 
@@ -107,6 +107,124 @@ function lineaMovimiento(e) {
         y = e.offsetY;
         console.log("Este es la Linea en movimiento",e);
     }
-}
- 
+}*/
 
+// Codigo del Evento dibujar con touchPath
+
+
+kmpo.addEventListener("touchstart", dibujandoStart);
+kmpo.addEventListener("touchmove", dibujandoTactil);
+kmpo.addEventListener("touchend", End2)
+
+var touch = false;
+var x = 0;
+var y = 0;
+
+// creamos la funcion del canvas
+function dibujandoCanvas(color, xi, yi, xf, yf, lienzo){
+    lienzo.beginPath();
+    lienzo.strokeStyle = color;
+    lienzo.lineWidth = 1;
+    lienzo.moveTo(xi, yi);
+    lienzo.lineTo(xf, yf);
+    lienzo.stroke();
+    lienzo.closePath();
+}
+
+function dibujandoStart(evento) {
+    var touch = evento.targetTouches[0];
+    dibujandoCanvas("red", x, y, x, y, lienzo)
+    x = touch.clientX;
+    y = touch.clientY;
+    console.log("Start", evento)
+}
+
+function dibujandoTactil(evento) {
+    var touch = evento.targetTouches[0];
+    dibujandoCanvas("red", x, y, touch.clientX, touch.clientY, lienzo)
+    x = touch.clientX;
+    y = touch.clientY;
+    console.log("Start", evento)
+}
+
+function End2(evento) {
+    var touch = false;
+    dibujandoCanvas("red", x, y, x, y, lienzo)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function dibujandoCanvas(color, xi, yi, xf, yf, lienzo){
+    lienzo.beginPath();
+    lienzo.strokeStyle = color;
+    lienzo.lineWidth = 1;
+    lienzo.moveTo(xi, yi);
+    lienzo.lineTo(xf, yf);
+    lienzo.stroke();
+    lienzo.closePath();
+}
+
+function dibuandoStart(e) {
+    touch = true;
+    dibujandoCanvas("blue", x, y, x, y);
+    x = 0,
+    y = 0,
+    console.log("Start")
+}
+
+function dibujandoTactil(e) {
+    if (touch == true) {
+        dibujandoCanvas("blue", x, y, touch.pageX, touch.pageY);
+        var touch = touch.pageX[0];
+        x = touch.pageX,
+        y = touch.pageY,
+        console.log("Este es moviendo tactil", e)
+    }
+}
+
+function End2(e) {
+    touch = false;
+    console.log("END2")
+}
+*/
